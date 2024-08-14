@@ -1,113 +1,96 @@
 import Image from "next/image";
+import { IoSearchOutline } from "react-icons/io5";
+import { FaLocationDot } from "react-icons/fa6";
+import { Button } from "@/components/ui/button";
+import UpcomingEvents from "@/components/ui/UpcomingEvents";
+import EventSlide from "@/components/ui/EventSlide";
+import EventCategories from "@/components/ui/EventCategories";
+import Footer from "@/components/ui/Footer";
+import { Section } from "lucide-react";
 
 export default function Home() {
+
+
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <section className="min-h-screen relative">
+      {/* Image Section */}
+      <div className="relative bg-cover bg-center bg-no-repeat h-[430px] w-full" style={{ backgroundImage: `url('/event1.jpg')` }}>
+        <div className="top-0 inset-0 bg-black/20 h-full absolute w-full"></div>
+        <div className="container mx-auto md:px-[150px] px-4 relative w-full h-full">
+          <div className="flex items-center justify-center absolute inset-x-0 bottom-20 space-y-4 flex-col">
+            <h2 className="text-center font-bold text-5xl text-white">Make Your Dream Come True</h2>
+            <h2 className="text-center text-2xl text-white">Meet your favorite artists, sport teams and parties</h2>
+
+            <div className="flex flex-row justify-between items-center border-white border-2 rounded-full">
+              <form>
+                <input type="text" placeholder="Search event" className="bg-white/30 text-white rounded-l-full h-8 px-2 md:w-[300px]" />
+              </form>
+            </div>
+
+            <div className="flex items-center justify-center gap-4">
+              <FaLocationDot className="text-heading text-xl" />
+              <span className="text-white text-md">Kenya</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      {/* Content Section */}
+      <div className="bg-footer py-3 h-[160px]">
+        <div className="container mx-auto md:px-[150px] px-4">
+          <div className="flex justify-between mb-6">
+            <h2 className="text-secondary font-bold text-2xl border-l-4 border-secondary px-2">TODAY'S EVENTS</h2>
+            <p className="text-secondary">Date</p>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-8 mb-10">
+            <div className="flex flex-col space-y-1 items-center text-white">
+              <h2>Time</h2>
+              <h2>Location</h2>
+              <Button>Book Now</Button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      {/* Upcoming Events Section */}
+      <div className="mt-10 container mx-auto md:px-[150px] px-4">
+        <UpcomingEvents />
       </div>
-    </main>
+
+      {/* Event Slide Section */}
+      <div className="mt-10 container mx-auto md:px-[150px] px-4">
+        <EventSlide />
+      </div>
+
+      {/* Event Categories Section */}
+      <div className="mt-10 container mx-auto md:px-[150px] px-4">
+        <div className="space-y-5">
+          <div>
+            <h2 className="text-black/60 font-bold text-2xl border-l-4 border-secondary px-2">EVENTS BY CATEGORIES</h2>
+          </div>
+          <EventCategories />
+        </div>
+      </div>
+
+      {/* Newsletter Signup Section */}
+      <div className="mt-10 mb-10 container mx-auto md:px-[150px] px-4 flex items-center justify-center flex-col gap-4">
+        <div className="space-y-3 border-b-2 border-black/70 py-4 px-6">
+          <h2 className="text-black/70 font-semibold text-2xl text-center">Stay Up to date With Your Favorite Events!</h2>
+          <p className="text-black/70 font-md text-sm text-center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy</p>
+        </div>
+        <div className="flex flex-col md:flex-row gap-2 justify-center items-center">
+          <form>
+            <input className="h-10 md:w-80 outline-none bg-black/20 px-3 text-black/80" placeholder="Your Email Address" />
+          </form>
+          <Button className="border text-white font-md rounded-none px-4 py-2">
+            Sign Me Up
+          </Button>
+        </div>
+      </div>
+    </section>
   );
+
+
 }
