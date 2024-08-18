@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
 
-export default function page() {
+export default function Register() {
 
     const [loading, setLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
@@ -48,8 +48,8 @@ export default function page() {
         <div className='mx-auto container md:px-[150px] min-h-[calc(100vh-100px)] px-4 mt-7 mb-7'>
             <ToastContainer />
             <div className="flex flex-col md:flex-row h-auto justify-center">
-                <div className="hidden md:flex md:w-1/2 h-auto w-full shadow-2xl">
-                    <img src='event.jpg' className='flex w-full h-full object-cover' />
+                <div className="hidden md:flex md:w-1/2  w-full shadow-2xl">
+                    <img src='event.jpg' className='flex  object-cover' />
                 </div>
                 <div className="md:w-1/3 px-3 py-6  flex flex-col shadow-2xl justify-center  space-y-3 w-full">
                     <div className='py-4'>
