@@ -15,8 +15,8 @@ export default function AdminLayout() {
 
     const renderContent = () => {
         switch (activeComponent) {
-             case 'Home':
-                 return <Home />;
+            case 'Home':
+                return <Home />;
             case 'Events':
                 return <Events />;
             case 'Tickets':
@@ -35,15 +35,15 @@ export default function AdminLayout() {
     return (
         <div className=''>
             <div className='flex w-screen h-screen '>
-              <div className='w-[30%]'>
-                <SideBar setActiveComponent={setActiveComponent} />
-              </div>
-                
+                <div className='w-[30%]'>
+                    <SideBar setActiveComponent={setActiveComponent} />
+                </div>
+
                 <div className='w-[100%] flex flex-col space-y-8 '>
                     < div className='h-16 shadow-2xl px-4 rounded-md mt-4 '>
-                        <AdminHeader />
+                        <AdminHeader setActiveComponent={setActiveComponent} />
                     </div>
-                   
+
                     <div className="p-4 border">
                         {renderContent()}
                     </div>

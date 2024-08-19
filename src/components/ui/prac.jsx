@@ -1,123 +1,105 @@
-import { useState, useEffect } from "react"
-import axios from "axios"
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Events() {
-
-    const [events, setEvents] = useState([])
-    const [formData, setFormData] = useState({ location: '', category: '', date: '', name: '', photo: null })
-    const [isEditing, setIsEditing] = useState(false)
-    const [currentPage, setCurrentPage] = useState(1)
-    const [totalPages, setTotalPages] = useState(1)
-    const [editId, setEditId] = useState(null)
-    const [photo, setPhoto] = useState('')
+    const [events, setEvents] = useState([]);
+    const [formData, setFormData] = useState({ location: '', category: '', date: '', name: '', photo: null });
+    const [isEditing, setIsEditing] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [editId, setEditId] = useState(null);
 
     useEffect(() => {
-
-        fetchEvents()
-    }, [currentPage])
+        fetchEvents();
+    }, [currentPage]);
 
     const fetchEvents = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/events?${currentPage}`)
-            console.log('Fetched events:', response.data);
-            setEvents(response.data)
-            setTotalPages(response.data.totalPages || 1)
+            const response = await axios.get(`http://localhost:8000/api/events?${currentPage}`);
+            setEvents(response.data);
+            setTotalPages(response.data.totalPages || 1);
         } catch (error) {
             console.error('Error fetching events:', error);
         }
-    }
+    };
 
     const handleInputChange = (e) => {
-        const { name, value, files } = e.target
+        const { name, value, files } = e.target;
         setFormData((prevData) => ({
-            ...prevData,
+            ...prevData, 
             [name]: files ? files[0] : value,
-        }))
-    }
-
-    const handleImage = (e) => {
-        const file = e.target.files[0]
-        setFileToBase(file)
-        console.log(file)
-    }
-
-    const setFileToBase = (file) => {
-        const reader = new fileReader()
-        reader.readAsDataURL(file)
-        reader.onloadend = () => {
-            setPhoto(reader.result)
-        }
-
-    }
+        }));
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const eventData = new FormData();
         for (const key in formData) {
             eventData.append(key, formData[key]);
         }
-        if (isEditing) {
-            updateEvent(eventData)
-        } else {
-            createEvent(eventData)
-        }
-        setFormData({ location: '', category: '', date: '', name: '', photo: null })
-        setIsEditing(false)
-        setEditId(null)
-        fetchEvents()
-    }
 
-    const createEvent = async () => {
+        if (isEditing) {
+            updateEvent(eventData);
+        } else {
+            createEvent(eventData);
+        }
+        setFormData({ location: '', category: '', date: '', name: '', photo: null });
+        setIsEditing(false);
+        setEditId(null);
+        fetchEvents();
+    };
+
+    const createEvent = async (eventData) => {
         try {
             const token = localStorage.getItem('token');
-            console.log(token)
             const config = {
                 headers: {
                     'Authorization': `Bearer ${token}`,
-
-                }
-
+                    'Content-Type': 'multipart/form-data',
+                },
             };
-            console.log(config)
 
-            const response = await axios.post('http://localhost:8000/api/events', formData, config);
+            const response = await axios.post('http://localhost:8000/api/events', eventData, config);
             console.log('Event created successfully:', response.data);
         } catch (error) {
-            if (error.response && error.response.status === 401) {
-                console.error('Unauthorized: Please login again.');
-            } else {
-                console.error('Error creating event:', error.response ? error.response.data : error.message);
-            }
+            console.error('Error creating event:', error);
         }
     };
 
-    const updateEvent = async () => {
+    const updateEvent = async (eventData) => {
         try {
-            console.log('Event ID:', editId);
-            await axios.put(`http://localhost:8000/api/event/${editId}`, formData)
+            const token = localStorage.getItem('token');
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            };
+            await axios.put(`http://localhost:8000/api/event/${editId}`, eventData, config);
+            console.log('Event updated successfully');
         } catch (error) {
             console.error('Error updating event:', error);
         }
-    }
+    };
 
     const handleDelete = async (eventId) => {
         try {
-            await axios.delete(`http://localhost:8000/api/event/${eventId}`)
+            await axios.delete(`http://localhost:8000/api/event/${eventId}`);
             fetchEvents();
         } catch (error) {
             console.error('Error deleting event:', error);
         }
-    }
+    };
 
     const handleEdit = (event) => {
-        setFormData({ location: event.location, category: event.category, date: event.date, name: event.name, photo: null })
-        setEditId(event._id)
-        setIsEditing(true)
-    }
+        setFormData({ location: event.location, category: event.category, date: event.date, name: event.name, photo: null });
+        setEditId(event._id);
+        setIsEditing(true);
+    };
+
     return (
         <div className="p-4 flex md:flex-row flex-col space-x-4">
-            {/* Event Form */}
-            <form onSubmit={handleSubmit} className="mb-4 flex flex-col items-center justify-center gap-3 ">
+            <form onSubmit={handleSubmit} className="mb-4 flex flex-col items-center justify-center gap-3">
                 <input
                     type="text"
                     name="name"
@@ -145,7 +127,6 @@ export default function Events() {
                     className="border p-2 mr-2"
                     required
                 />
-
                 <input
                     type="date"
                     name="date"
@@ -179,12 +160,10 @@ export default function Events() {
             </form>
 
             {/* Events Table */}
-
-            <div className='overflow-x-auto flex-1'>
-                <table className=" bg-white border w-full">
-                    <thead className='bg-secondary text-white'>
+            <div className="overflow-x-auto flex-1">
+                <table className="bg-white border w-full">
+                    <thead className="bg-secondary text-white">
                         <tr>
-                            <th className="py-2 px-4 border">Image</th>
                             <th className="py-2 px-4 border">Name</th>
                             <th className="py-2 px-4 border">Location</th>
                             <th className="py-2 px-4 border">Category</th>
@@ -197,9 +176,6 @@ export default function Events() {
                         {events && events.length > 0 ? (
                             events.map((event) => (
                                 <tr key={event._id}>
-                                    <td className="py-2 px-4 border">
-                                        <img src={event.photo} alt={event.name} className="h-16 w-16 object-cover" />
-                                    </td>
                                     <td className="py-2 px-4 border">{event.name}</td>
                                     <td className="py-2 px-4 border">{event.location}</td>
                                     <td className="py-2 px-4 border">{event.category}</td>
@@ -225,8 +201,6 @@ export default function Events() {
                             </tr>
                         )}
                     </tbody>
-
-
                 </table>
                 <div className="flex justify-between mt-4">
                     <button
@@ -248,9 +222,6 @@ export default function Events() {
                     </button>
                 </div>
             </div>
-
-            {/* Pagination */}
-
         </div>
-    )
+    );
 }
